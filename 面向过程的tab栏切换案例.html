@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    li {
+        list-style: none;
+    }
+
+    .tab {
+        width: 500px;
+        margin: 50px auto;
+    }
+
+    .tab_list {
+        height: 30px;
+        /* border: 1px solid rgb(134, 134, 134); */
+        background-color: #ccc;
+    }
+
+    .tab_list li {
+        float: left;
+        height: 30px;
+        line-height: 30px;
+        padding: 0px 20px;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .tab_list .current {
+        background-color: rgb(182, 50, 50);
+        color: #fff;
+    }
+
+    .tab_con .item {
+        display: none;
+    }
+
+    .tab_con .item1 {
+        display: block;
+    }
+</style>
+
+<body>
+    <div class="tab">
+        <div class="tab_list">
+            <ul>
+                <li class="current">Tab1</li>
+                <li>Tab2</li>
+                <li>Tab3</li>
+                <li>Tab4</li>
+                <li>Tab5</li>
+            </ul>
+        </div>
+        <div class="tab_con">
+            <div class="item item1">Tab1内容</div>
+            <div class="item">Tab2内容</div>
+            <div class="item">Tab3内容</div>
+            <div class="item">Tab4内容</div>
+            <div class="item">Tab5内容</div>
+        </div>
+    </div>
+    <script>
+        var tabList = document.querySelector('.tab_list').querySelectorAll('li');
+        var items = document.querySelector('.tab_con').querySelectorAll('.item');
+        for (var i = 0; i < tabList.length; i++) {
+            tabList[i].setAttribute('data-index', i);
+            //1.先解决导航栏部分，点击某个元素，更改其样式，需要用到排他思想
+            tabList[i].onclick = function () {
+                for (var i = 0; i < tabList.length; i++) {
+                    tabList[i].className = '';
+                }
+                this.className = 'current';
+                //2.解决内容部分，对应内容显示，其他不显示，也是点击之后触发，所以也需要写到点击事件里面,仍然需要排他思想
+                for (var i = 0; i < items.length; i++) {
+                    items[i].className = 'item';
+                }
+                var index = this.getAttribute('data-index');
+                items[index].className = 'item1';
+            }
+        }
+    </script>
+</body>
+
+</html>
